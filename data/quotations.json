@@ -1,0 +1,74 @@
+{
+  "d": {
+    "results": [
+      {
+        "__metadata": {"type": "QuotationItem"},
+        "RequestForQuotation": "7000000101",
+        "SupplierQuotation": "8000000201",
+        "Supplier": "100101",
+        "SupplierName": "HG Tech",
+        "Material": "UM-3000",
+        "MaterialName": "Bluetooth Chipset",
+        "RequestedQuantity": "100",
+        "OrderQuantityUnit": "EA",
+        "NetPriceAmount": "58000.00",
+        "DocumentCurrency": "KRW",
+        "MinimumOrderQuantity": "50",
+        "DeliveryLeadTimeInDays": "7",
+        "DiscountPercent": "2.0",
+        "ShippingCostAmount": "30000.00"
+      },
+      {
+        "__metadata": {"type": "QuotationItem"},
+        "RequestForQuotation": "7000000101",
+        "SupplierQuotation": "8000000202",
+        "Supplier": "100102",
+        "SupplierName": "HY Tech",
+        "Material": "UM-3000",
+        "MaterialName": "Bluetooth Chipset",
+        "RequestedQuantity": "100",
+        "OrderQuantityUnit": "EA",
+        "NetPriceAmount": "61000.00",
+        "DocumentCurrency": "KRW",
+        "MinimumOrderQuantity": "100",
+        "DeliveryLeadTimeInDays": "5",
+        "DiscountPercent": "3.0",
+        "ShippingCostAmount": "0.00"
+      },
+      {
+        "__metadata": {"type": "QuotationItem"},
+        "RequestForQuotation": "7000000101",
+        "SupplierQuotation": "8000000203",
+        "Supplier": "100103",
+        "SupplierName": "CH Tech",
+        "Material": "UM-3000",
+        "MaterialName": "Bluetooth Chipset",
+        "RequestedQuantity": "100",
+        "OrderQuantityUnit": "EA",
+        "NetPriceAmount": "72000.00",
+        "DocumentCurrency": "KRW",
+        "MinimumOrderQuantity": "200",
+        "DeliveryLeadTimeInDays": "4",
+        "DiscountPercent": "0.0",
+        "ShippingCostAmount": "50000.00"
+      },
+      {
+        "__metadata": {"type": "QuotationItem"},
+        "RequestForQuotation": "7000000101",
+        "SupplierQuotation": "8000000204",
+        "Supplier": "100104",
+        "SupplierName": "SJ Tech",
+        "Material": "UM-3000",
+        "MaterialName": "Bluetooth Chipset",
+        "RequestedQuantity": "100",
+        "OrderQuantityUnit": "EA",
+        "NetPriceAmount": "41.50",
+        "DocumentCurrency": "USD",
+        "MinimumOrderQuantity": "100",
+        "DeliveryLeadTimeInDays": "14",
+        "DiscountPercent": "0.0",
+        "ShippingCostAmount": ""
+      }
+    ]
+  }
+}

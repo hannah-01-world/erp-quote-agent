@@ -1,0 +1,10 @@
+{
+  "d": {
+    "results": [
+      {"PurchaseOrder": "4500000011", "Supplier": "100101", "Material": "UM-3000", "NetPriceAmount": "59000.00", "DocumentCurrency": "KRW", "PurchaseOrderDate": "2026-06-10", "PromisedDays": "7", "ActualDays": "7"},
+      {"PurchaseOrder": "4500000017", "Supplier": "100101", "Material": "UM-3000", "NetPriceAmount": "59500.00", "DocumentCurrency": "KRW", "PurchaseOrderDate": "2026-04-02", "PromisedDays": "7", "ActualDays": "8"},
+      {"PurchaseOrder": "4500000009", "Supplier": "100102", "Material": "UM-3000", "NetPriceAmount": "60000.00", "DocumentCurrency": "KRW", "PurchaseOrderDate": "2026-03-15", "PromisedDays": "5", "ActualDays": "11"},
+      {"PurchaseOrder": "4500000013", "Supplier": "100102", "Material": "UM-3000", "NetPriceAmount": "60500.00", "DocumentCurrency": "KRW", "PurchaseOrderDate": "2026-05-20", "PromisedDays": "5", "ActualDays": "9"}
+    ]
+  }
+}
