@@ -43,8 +43,8 @@ LLM(Claude)은 Function Calling으로 위 세 도구를 직접 골라 호출합�
 | 조건 | 0.15 | (단가 × 수량 × 할인율 − 배송비)를 업체 간 0~100으로 환산 |
 
 ## 실행
-![실행 결과](result.png)
-![테스트 결과](tests.png)
+![실행 결과](result.png.jpg)
+![테스트 결과](test.png.jpg)
 ```bash
 pip install -r requirements.txt
 
