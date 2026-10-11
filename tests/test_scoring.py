@@ -7,18 +7,38 @@ import sap_client
 import scoring
 
 RFQ = "7000000101"
+FX = sap_client.get_fx_rates()
 HISTORY = sap_client.get_purchase_history("UM-3000")
 
 
 def _valid():
-    valid, _ = scoring.validate(sap_client.get_quotations(RFQ))
+    valid, _ = scoring.validate(sap_client.get_quotations(RFQ), FX)
     return valid
 
 
-def test_usd_quote_is_excluded():
-    _, excluded = scoring.validate(sap_client.get_quotations(RFQ))
+def test_usd_quote_converted_but_excluded_for_missing_shipping():
+    _, excluded = scoring.validate(sap_client.get_quotations(RFQ), FX)
     assert [e["supplier"] for e in excluded] == ["SJ Tech"]
-    assert any("통화" in r for r in excluded[0]["reasons"])
+    reasons = excluded[0]["reasons"]
+    assert not any("통화" in r for r in reasons)          # 환율표에 USD가 있으니 통화 문제는 사라짐
+    assert reasons == ["ShippingCostAmount 값 누락"]      # 배송비 누락만 남음
+    assert "41.50 USD × 1,380" in excluded[0]["fx_note"]  # 환산 근거 기록
+
+
+def test_usd_quote_with_shipping_is_converted_to_krw():
+    sj = dict(next(q for q in sap_client.get_quotations(RFQ) if q["SupplierName"] == "SJ Tech"))
+    sj["ShippingCostAmount"] = "20"
+    valid, excluded = scoring.validate([sj], FX)
+    assert excluded == []
+    assert valid[0]["DocumentCurrency"] == "KRW"
+    assert float(valid[0]["NetPriceAmount"]) == 57270.0     # 41.5 × 1,380
+    assert float(valid[0]["ShippingCostAmount"]) == 27600.0  # 20 × 1,380
+
+
+def test_unknown_currency_is_excluded():
+    q = dict(sap_client.get_quotations(RFQ)[0], DocumentCurrency="EUR")
+    _, excluded = scoring.validate([q], FX)
+    assert any("환율표에 없는 통화" in r for r in excluded[0]["reasons"])
 
 
 def test_same_input_same_result():

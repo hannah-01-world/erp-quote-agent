@@ -72,7 +72,8 @@ TOOLS = [
 def run_tool(name: str, args: dict, audit: dict) -> dict:
     """LLM이 고른 도구를 실제로 실행한다. 모든 호출은 감사 로그에 남긴다."""
     quotes = sap_client.get_quotations(args["rfq_id"])
-    valid, excluded = scoring.validate(quotes)
+    fx = sap_client.get_fx_rates()
+    valid, excluded = scoring.validate(quotes, fx)  # 외화 견적은 환율표 기준으로 원화 환산
 
     if name == "get_quotations":
         result = {
@@ -81,8 +82,10 @@ def run_tool(name: str, args: dict, audit: dict) -> dict:
                 {k: q[k] for k in ("SupplierName", "Material", "NetPriceAmount", "DocumentCurrency",
                                     "DeliveryLeadTimeInDays", "MinimumOrderQuantity",
                                     "DiscountPercent", "ShippingCostAmount")}
+                | ({"fx_note": q["FxNote"]} if "FxNote" in q else {})
                 for q in valid
             ],
+            "fx_base_date": fx.get("base_date"),
             "excluded": excluded,
         }
     elif name == "score_quotations":
@@ -144,7 +147,11 @@ def run_offline(rfq_id: str, audit: dict) -> str:
 
     lines = [f"RFQ {rfq_id} 비교 결과 (오프라인 모드, LLM 미사용)", ""]
     for e in q["excluded"]:
-        lines.append(f"제외: {e['supplier']} - {', '.join(e['reasons'])}")
+        note = f" (원화 환산: {e['fx_note']})" if "fx_note" in e else ""
+        lines.append(f"제외: {e['supplier']} - {', '.join(e['reasons'])}{note}")
+    for v in q["valid_quotations"]:
+        if "fx_note" in v:
+            lines.append(f"원화 환산: {v['SupplierName']} {v['fx_note']}")
     lines.append("")
     lines.append(f"{'순위':<4}{'업체':<10}{'총점':>6}{'가격':>7}{'납기':>7}{'수량':>7}{'조건':>7}")
     for r in s["ranking"]:

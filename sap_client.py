@@ -49,5 +49,11 @@ def get_quotations(rfq_id: str) -> list[dict]:
     return [q for q in load_local("quotations.json") if q["RequestForQuotation"] == rfq_id]
 
 
+def get_fx_rates() -> dict:
+    """환율표. 기준일과 통화별 원화 환산율을 함께 돌려준다."""
+    with open(DATA_DIR / "fx_rates.json", encoding="utf-8") as f:
+        return json.load(f)
+
+
 def get_purchase_history(material: str) -> list[dict]:
     return [p for p in load_local("purchase_history.json") if p["Material"] == material]
